@@ -23,12 +23,13 @@ function init() {
             dropMenu.append("option").text(name).property("value", name)
         });
 
-        console.log(dropMenu);
+        //Get first value from names variable to use for init charts
         init_value = names[0]
 
         //Initialize Plots
         barChart(init_value);
         bubbleChart(init_value);
+        metaData(init_value)
 
     })
 };
@@ -120,6 +121,32 @@ function bubbleChart(values) {
 
         //Use Plotly to plot chart
         Plotly.newPlot("bubble", bubbleData, layout);
+    });
+};
+
+//Display Demographic Info
+function metaData(values){
+    //Assign info panel to variable
+    let infoPanel = d3.select(".panel-body");
+
+    d3.json(url).then((data)=> {
+        //Get all metadata
+        let metaData = data.metadata;
+
+        //Filter based on the id used in the drop down menu
+        let value = metaData.filter((value)=> value.id == values);
+
+        //Get first index from array to get all data
+        let info = value[0];
+
+        //Check data
+        console.log(info);
+
+        //Append metainfo to info panel
+        let metaInfo = Object.keys(info).forEach((key)=>{
+            console.log(`${key}: ${info[key]}`);
+            infoPanel.append("h5").text(`${key}: ${info[key]}`)
+        });
     });
 };
 init()
