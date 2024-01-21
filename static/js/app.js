@@ -28,6 +28,7 @@ function init() {
 
         //Initialize Plots
         barChart(init_value);
+        bubbleChart(init_value);
 
     })
 };
@@ -59,13 +60,15 @@ function barChart(values) {
         let labels = otu_labels.slice(0,10).reverse();
 
         //Trace for the bar chart
-        let trace = [{
+        let trace = {
             x: xticks,
             y: yticks,
             text: labels,
             type: "bar",
             orientation: "h"
-        }];
+        };
+
+        let barData = [trace]
 
         //Setup layout
         let layout = {
@@ -73,8 +76,50 @@ function barChart(values) {
         };
 
         //Use Plotly to plot chart
-        Plotly.newPlot("bar", trace, layout);
+        Plotly.newPlot("bar", barData, layout);
     });
 };
 
+
+//Create Bubble Chart
+function bubbleChart(values) {
+    //Fetch Data
+    d3.json(url).then((data)=> {
+        //Get all sample data
+        let sampleInfo = data.samples;
+
+        //Filter based on the id used in the drop down menu
+        let value = sampleInfo.filter((value)=> value.id == values);
+
+        //Get first index from array to get all data
+        let allData = value[0];
+
+        //Get values needed for bar chart from allData
+        let otu_ids = allData.otu_ids;
+        let otu_labels = allData.otu_labels;
+        let sample_values = allData.sample_values;
+
+        //Trace for the bar chart
+        let trace = {
+            x: otu_ids,
+            y: sample_values,
+            text: otu_labels,
+            mode: "markers",
+            marker: {
+                size: sample_values,
+                color: otu_ids
+            }
+        };
+
+        let bubbleData = [trace]
+
+        //Setup layout
+        let layout = {
+            title: "Top 10 OTUs"
+        };
+
+        //Use Plotly to plot chart
+        Plotly.newPlot("bubble", bubbleData, layout);
+    });
+};
 init()
