@@ -108,7 +108,8 @@ function bubbleChart(values) {
             mode: "markers",
             marker: {
                 size: sample_values,
-                color: otu_ids
+                color: otu_ids,
+                colorscale: "Earth"
             }
         };
 
@@ -116,7 +117,9 @@ function bubbleChart(values) {
 
         //Setup layout
         let layout = {
-            title: "Top 10 OTUs"
+            title: "Bacteria Per Sample",
+            hovermode: "closest",
+            xaxis: {title: "OTU ID"}
         };
 
         //Use Plotly to plot chart
