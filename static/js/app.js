@@ -145,6 +145,9 @@ function metaData(values){
         //Check data
         console.log(info);
 
+        //Clear info panel to avoid appending new data on old data
+        infoPanel.html("")
+
         //Append metainfo to info panel
         let metaInfo = Object.keys(info).forEach((key)=>{
             console.log(`${key}: ${info[key]}`);
@@ -152,4 +155,11 @@ function metaData(values){
         });
     });
 };
-init()
+
+function optionChanged(value){
+    barChart(value);
+    bubbleChart(value);
+    metaData(value)
+};
+
+init();
