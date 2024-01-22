@@ -1,4 +1,3 @@
-//Display Gauge Code
 function gaugeChart(values){
     //Fetch Data
     d3.json(url).then((data)=> {
@@ -25,21 +24,22 @@ function gaugeChart(values){
                 type: "indicator",
                 mode: "gauge+number",
                 gauge: {
-                    axis: {range: [null, 9], tickwidth: 1, tickcolor: "lightblue"},
+                    axis: {range: [null, 9], tickwidth: 1, tickcolor: "black"},
                     steps: [
-                        {range: [0, 1]},
-                        {range: [1, 2]},
-                        {range: [2, 3]},
-                        {range: [3, 4]},
-                        {range: [4, 5]},
-                        {range: [5, 6]},
-                        {range: [6, 7]},
-                        {range: [7, 8]},
-                        {range: [8, 9]},
-                    ]             
+                        {range: [0, 1],color: "lightgrey"},
+                        {range: [1, 2],color: "lightgrey"},
+                        {range: [2, 3],color: "lightgrey"},
+                        {range: [3, 4],color: "lightgrey"},
+                        {range: [4, 5],color: "lightgrey"},
+                        {range: [5, 6],color: "lightgrey"},
+                        {range: [6, 7],color: "lightgrey"},
+                        {range: [7, 8],color: "lightgrey"},
+                        {range: [8, 9],color: "lightgrey"},
+                    ],
+                    bar: {color: "rgb(31,119,180)"},
+                    bordercolor: "white",             
                 },
-                bar: {color: "lightblue"},
-                bordercolor: "gray",
+                
             }
         ]
 
@@ -47,8 +47,9 @@ function gaugeChart(values){
             width: 600, 
             height: 400, 
             margin: { t: 0, b: 0 },
-            font: {color: "grey", family: "monospace"},
+            font: {color: "rgb(51,51,51)", family:"monospace"},
          };
+         
         //Use Plotly to plot chart
         Plotly.newPlot("gauge", gaugeData, layout);
     });

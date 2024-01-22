@@ -206,8 +206,9 @@ function gaugeChart(values){
             width: 600, 
             height: 400, 
             margin: { t: 0, b: 0 },
-            font: {color: "rgb(51,51,51)", family: "monospace,monospace"},
+            font: {color: "rgb(51,51,51)", family:"monospace"},
          };
+         
         //Use Plotly to plot chart
         Plotly.newPlot("gauge", gaugeData, layout);
     });
